@@ -1,0 +1,51 @@
+ext {
+
+    versionCode = 4
+    versionName = '1.0.3'
+    machineType=1//1表示QL4，2表示QL5
+    onlyIsland=false
+
+    //下面各种配置为KEY和SECRET
+    //buggly
+    bugglyAppKey = '\"885a2cbb01\"'
+
+    //编译版本
+    compileSdkVersion = 27
+    //最小版本
+    minSdkVersion = 21
+    targetSdkVersion = 23
+    //support库版本
+    supportVersion = '27.1.1'
+    //约束布局版本
+    constraintVersion = '1.1.3'
+    //glide版本
+    glideVersion = '4.7.1'
+    //okGo版本
+    okgoVersion = '3.0.4'
+    //okHttp3版本
+    okhttpVersion = '3.9.0'
+    //EventBus版本
+    eventBusVersion = '3.1.1'
+
+    viewHolderVersion = '2.9.40'
+    //权限处理框架版本
+    andPermissionVersion = '2.0.0-rc5'
+    //日志框架版本
+    codeUtilsVersion = '1.20.1'
+    //gson的版本
+    gsonVersion = '2.8.5'
+    //autoSize版本
+    autoSizeVersion='1.0.1'
+
+    //photoView的版本
+    photoVersion = '1.2.4'
+
+    //测试相关的版本
+    junitVersion = '4.12'
+    runnerVersion = '1.0.1'
+    espressoVersion = '3.0.1'
+    bugglyVersion = '2.6.6.1'
+
+
+
+}
