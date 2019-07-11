@@ -1,5 +1,6 @@
 package com.wenfengtou.fengtouplayer;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.SurfaceTexture;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,9 @@ import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.wenfengtou.ffmpeglib.HelloJniHelper;
+
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
@@ -22,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         player = new IjkMediaPlayer();
         //player.setVolume(0, 0);
         ttv = (TextureView) findViewById(R.id.text_screen);
@@ -47,8 +51,16 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPrepared(IMediaPlayer mp) {
                     player.start();
-                    Log.i("wenfengplayer","player start");
+                    Log.i("wenfengplayer","player start" + HelloJniHelper.hello());
                     player.setLooping(true);
+                }
+            });
+
+            player.setOnVideoSizeChangedListener(new IMediaPlayer.OnVideoSizeChangedListener() {
+                @Override
+                public void onVideoSizeChanged(IMediaPlayer mp, int width, int height, int sar_num, int sar_den) {
+                    Log.i("wenfengplayer","width is " + width + " height is " + height);
+                    Log.i("wenfengplayer","ttv width is " + ttv.getWidth() + " height is " + ttv.getHeight());
                 }
             });
         } catch (Exception e) {

@@ -1,1 +1,1 @@
-include ':app', ':ijkplayer-lib'
+include ':app', ':ijkplayerlib', ':ffmpeglib'
