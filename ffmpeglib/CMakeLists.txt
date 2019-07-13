@@ -10,7 +10,8 @@ add_library( # Sets the name of the library
              SHARED
 
              # Provides a relative path to your source file(s)
-             src/main/cpp/hello.cpp )
+             src/main/cpp/hello.cpp
+             src/main/cpp/FFmpegNativeUtil.cpp )
 
 add_library(avcodec SHARED IMPORTED)
 set_target_properties(avcodec PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI}/libavcodec.so)
@@ -44,4 +45,5 @@ target_link_libraries( # Specifies the target library.
                         swscale
                        # Links the target library to the log library
                        # included in the NDK.
-                       ${log-lib} )
+                        android
+                        log )
