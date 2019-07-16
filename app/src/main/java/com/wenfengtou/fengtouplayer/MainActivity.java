@@ -1,5 +1,6 @@
 package com.wenfengtou.fengtouplayer;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.SurfaceTexture;
 import android.net.Uri;
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 img.setImageBitmap(ttv.getBitmap());
             }
         });
+        startActivity(new Intent(MainActivity.this,OpenglActivity.class));
 
     }
     private class TextureListen implements TextureView.SurfaceTextureListener {

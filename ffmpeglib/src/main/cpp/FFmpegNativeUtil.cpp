@@ -115,18 +115,38 @@ Java_com_wenfengtou_ffmpeglib_FFmpegNativeUtil_videoStreamPlay(JNIEnv *env, jobj
     //如果缓冲区与物理屏幕的显示尺寸不相符，则实际显示可能会是拉伸，或者被压缩的图像
     ANativeWindow_setBuffersGeometry(nativeWindow, codecContext->width, codecContext->height,
                                      WINDOW_FORMAT_RGBA_8888);
+    AVStream * avStream = formatContext->streams[video_stream_index];
+    int frame_rate = avStream->r_frame_rate.num/avStream->r_frame_rate.den;
+    uint64_t duration = formatContext->duration;
+   // duration= duration/AV_TIME_BASE;
+    double timebase = av_q2d(avStream->time_base);
+    LOGD("frame_rate is %d,duration is %" PRId64", timebase is %lf",frame_rate, avStream->duration, timebase);
     //循环读取数据流的下一帧
-    while (av_read_frame(formatContext, packet) == 0) {
+    if(formatContext->duration != AV_NOPTS_VALUE){
+        int hours, mins, secs, us;
+        int64_t duration = formatContext->duration + 5000;
+        secs = duration / AV_TIME_BASE;
+        LOGD("wfthh durationw %" PRId64",dd", duration);
+        LOGD("wfthh5000 %d\n", secs);
 
+    }
+    int iframenum = 0;
+    while (av_read_frame(formatContext, packet) == 0) {
         if (packet->stream_index == video_stream_index) {
             //讲原始数据发送到解码器
             int sendPacketState = avcodec_send_packet(codecContext, packet);
             if (sendPacketState == 0) {
                 int receiveFrameState = avcodec_receive_frame(codecContext, frame);
                 if (receiveFrameState == 0) {
+                    LOGD("dts is %" PRId64"",packet->dts);
                     //锁定窗口绘图界面
                     ANativeWindow_lock(nativeWindow, &outBuffer, NULL);
                     //对输出图像进行色彩，分辨率缩放，滤波处理
+                    LOGD("keyframe type  %d", frame->pict_type);
+                    if (frame->key_frame == 1) {
+                        LOGD("skip keyiframe");
+                        continue;
+                    }
                     sws_scale(swsContext, (const uint8_t *const *) frame->data, frame->linesize, 0,
                               frame->height, outFrame->data, outFrame->linesize);
                     uint8_t *dst = (uint8_t *) outBuffer.bits;
