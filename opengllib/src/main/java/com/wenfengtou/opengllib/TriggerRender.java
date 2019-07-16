@@ -2,6 +2,7 @@ package com.wenfengtou.opengllib;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView.Renderer;
+import android.os.SystemClock;
 import android.util.Log;
 
 import java.nio.FloatBuffer;
@@ -9,16 +10,25 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-public class FengtouRender implements Renderer {
+public class TriggerRender implements Renderer {
 
-    private static final String TAG = "FengtouRender";
+    private static final String TAG = "TriggerRender";
+    int colorCount = 0;
     float[] triangleCoords = {
-            0.5f,0.5f,0.0f,//top
+            0.0f,0.5f,0.0f,//top
             -0.5f,-0.5f,0.0f, //bottom left
             0.5f,-0.5f,0.0f //bottom right
     };
 
-    float[] color = {1.0f,1.0f,1.0f,1.0f};
+    float[][] color = {
+            {1.0f,1.0f,1.0f,1.0f},
+            {0.0f,0.0f,0.0f,1.0f},
+            {0.0f,0.0f,1.0f,1.0f},
+            {0.0f,1.0f,0.0f,1.0f},
+            {0.0f,1.0f,1.0f,1.0f},
+            {1.0f,0.0f,0.0f,1.0f}
+    };
+
     FloatBuffer vertextBuffer;
 
     private final String vertextSharderCode =
@@ -45,7 +55,7 @@ public class FengtouRender implements Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         Log.i(TAG, "onSurfaceCreated");
-        GLES20.glClearColor(0f, 1.0f, 0f, 1.0f);
+        GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         vertextBuffer = BufferUtil.fBuffer(triangleCoords);
         int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertextSharderCode);
         int fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragmenttSharderCode );
@@ -64,12 +74,17 @@ public class FengtouRender implements Renderer {
     @Override
     public void onDrawFrame(GL10 gl10) {
          Log.i(TAG, "onDrawFrame");
+        if (colorCount > 100) {
+            colorCount = 0;
+        }
+        SystemClock.sleep(1000);
+        colorCount ++;
          GLES20.glClear(GL10.GL_COLOR_BUFFER_BIT);
          GLES20.glUseProgram(mProgram);
          mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vvPosition");
          GLES20.glEnableVertexAttribArray(mPositionHandle);
          GLES20.glVertexAttribPointer(mPositionHandle,COORDS_PER_VERTEXT,GLES20.GL_FLOAT, false,vertextStride,vertextBuffer);
-         GLES20.glUniform4fv(mColorHandle,1,color,0);
+         GLES20.glUniform4fv(mColorHandle,1,color[colorCount%6],0);
          GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,vertextCount);
          GLES20.glDisableVertexAttribArray(mPositionHandle);
     }

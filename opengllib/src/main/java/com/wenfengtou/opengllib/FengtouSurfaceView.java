@@ -6,13 +6,13 @@ import android.util.AttributeSet;
 
 public class FengtouSurfaceView extends GLSurfaceView {
 
-    FengtouRender mRender;
+    TriggerRender mRender;
     public FengtouSurfaceView(Context context) {
         super(context);
         setEGLContextClientVersion(2);
-        mRender = new FengtouRender();
+        mRender = new TriggerRender();
         setRenderer(mRender);
-        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }
 
     public FengtouSurfaceView(Context context, AttributeSet attrs) {
