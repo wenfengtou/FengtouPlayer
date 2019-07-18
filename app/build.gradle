@@ -28,5 +28,4 @@ dependencies {
     implementation project(':ijkplayerlib')
     implementation project(':ffmpeglib')
     implementation project(':opengllib')
-    implementation project(':rtsplib')
 }

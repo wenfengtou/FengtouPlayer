@@ -3,9 +3,11 @@
 #include <android/log.h>
 #include <android/native_window_jni.h>
 #include <unistd.h>
+
 extern "C"
 {
 #include "libavformat/avformat.h"
+#include <rtsp-client.h>
 #include "libswscale/swscale.h"
 #include <libavutil/imgutils.h>
 }
@@ -20,6 +22,8 @@ Java_com_wenfengtou_ffmpeglib_FFmpegNativeUtil_videoStreamPlay(JNIEnv *env, jobj
         return;
     }
     //注册FFmpeg所有编解码器，以及相关协议。
+   // char *argv [] = {"China","French"};
+    LOGD("addresult is %d",rtsp_add());
     av_register_all();
     //分配结构体
     AVFormatContext *formatContext = avformat_alloc_context();

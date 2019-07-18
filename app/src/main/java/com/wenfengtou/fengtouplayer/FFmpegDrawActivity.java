@@ -22,18 +22,6 @@ public class FFmpegDrawActivity extends Activity {
         setContentView(R.layout.activity_ffmpeg_draw);
         mLayout = (LinearLayout) findViewById(R.id.mLayout);
         mVideoView = (MyVideoView) findViewById(R.id.myVV);
-        for (int i = 0 ;i < 100;i++) {
-            mhandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mImageView = new ImageView(FFmpegDrawActivity.this);
-                    mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.a);
-                    mImageView.setImageBitmap(mBitmap);
-                    mLayout.addView(mImageView);
-                }
-            },100);
-
-        }
 
     }
 
@@ -45,7 +33,7 @@ public class FFmpegDrawActivity extends Activity {
             @Override
             public void run() {
                 //"http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8"
-                mVideoView.startPlay("rtsp://192.168.9.31:6789/1");
+                mVideoView.startPlay("http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8");
             }
         },1000);
 

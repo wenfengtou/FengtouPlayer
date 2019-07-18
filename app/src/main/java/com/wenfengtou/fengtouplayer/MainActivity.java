@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 img.setImageBitmap(ttv.getBitmap());
             }
         });
-        startActivity(new Intent(MainActivity.this,OpenglActivity.class));
+        startActivity(new Intent(MainActivity.this,FFmpegDrawActivity.class));
 
     }
     private class TextureListen implements TextureView.SurfaceTextureListener {

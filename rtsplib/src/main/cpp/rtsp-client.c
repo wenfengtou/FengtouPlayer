@@ -10,6 +10,7 @@
 
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <rtsp-client.h>
 //#include "MD5.h"
 #define BUF_SIZE  4096
 
@@ -66,7 +67,11 @@ int init_udpsocket(int port, struct sockaddr_in *servaddr, char *mcast_addr)
     return socket_fd;
 }
 
-int main(int argc, char *argv[])
+int rtsp_add() {
+    return 1;
+}
+
+int rtsp_main(int argc, char *argv[])
 {
 
     int i = 0, j = 0, k = 0;
