@@ -46,7 +46,7 @@ Java_com_wenfengtou_ffmpeglib_FFmpegNativeUtil_videoStreamPlay(JNIEnv *env, jobj
     //找到"视频流".AVFormatContext 结构体中的nb_streams字段存储的就是当前视频文件中所包含的总数据流数量——
     //视频流，音频流，字幕流
     for (int i = 0; i < formatContext->nb_streams; i++) {
-
+        LOGD("当前视频数据 height：%d", formatContext->streams[i]->codecpar->height);
         //如果是数据流的编码格式为AVMEDIA_TYPE_VIDEO——视频流。
         if (formatContext->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) {
             video_stream_index = i;//记录视频流下标

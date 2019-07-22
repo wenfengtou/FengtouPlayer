@@ -33,7 +33,7 @@ public class FFmpegDrawActivity extends Activity {
             @Override
             public void run() {
                 //"http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8"
-                mVideoView.startPlay("http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8");
+                mVideoView.startPlay("rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov");
             }
         },1000);
 
